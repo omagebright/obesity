@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this dataset or code, please cite it as below."
+title: "Plasma 1H-NMR Metabolomics for Obesity Classification"
+authors:
+  - family-names: "Sena-Evangelista"
+    given-names: "Karine Cavalcanti Maurício"
+    orcid: "https://orcid.org/0000-0001-9729-1243"
+  - family-names: "Omage"
+    given-names: "Folorunsho Bright"
+  - family-names: "Braga"
+    given-names: "Erik Sobrinho"
+  - family-names: "Martins"
+    given-names: "Lucas Gelain"
+  - family-names: "Tasic"
+    given-names: "Ljubica"
+version: 1.0.0
+date-released: 2026-01-08
+url: "https://github.com/omagebright/obesity"
+license: CC-BY-4.0
+type: dataset
+keywords:
+  - metabolomics
+  - NMR spectroscopy
+  - obesity
+  - machine learning
+  - biomarkers
