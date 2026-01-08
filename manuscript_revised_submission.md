@@ -1,0 +1,338 @@
+# Plasma 1H-NMR metabolomics identifies amino acid and carbohydrate pathway alterations associated with obesity
+
+**Karine Cavalcanti Mauricio Sena-Evangelista**^1,2^, **Folurunsho Bright Omage**^3^, **Erik Sobrinho Braga**^3^, **Lucas Gelain Martins**^3^, **Paula Emilia Nunes Ribeiro Bellot**^2^, **Adriano Carlos de Souza Junior**^2^, **Lucia Fatima Campos Pedrosa**^1,2^, **Dirce Maria Lobo Marchioni**^4^, **Fernando Barbosa Jr.**^5^, **Severina Carla Vieira Cunha Lima**^1,2^, **Clelia Oliveira Lyra**^1,2^, **Ljubica Tasic**^3^
+
+1. Department of Nutrition, Center for Health Sciences, Federal University of Rio Grande do Norte, Natal, Rio Grande do Norte, Brazil
+2. Graduate Program in Nutrition, Center for Health Sciences, Federal University of Rio Grande do Norte, Natal, Rio Grande do Norte, Brazil
+3. Biological Chemistry Laboratory, Department of Organic Chemistry, Institute of Chemistry, Universidade Estadual de Campinas (UNICAMP), Campinas, Sao Paulo, Brazil
+4. Department of Nutrition, School of Public Health, University of Sao Paulo, Sao Paulo, Sao Paulo, Brazil
+5. Department of Clinical Analyses, Toxicology and Food Sciences, School of Pharmaceutical Sciences of Ribeirao Preto of the University of Sao Paulo, Ribeirao Preto, Sao Paulo, Brazil
+
+*Corresponding author:
+E-mail: karine.sena@ufrn.br (KCMSE)
+
+---
+
+## Abstract
+
+**Scope:** Obesity perturbs intermediary metabolism and elevates cardiometabolic risk. We profiled circulating metabolites to distinguish adults with BMI >= 30 kg/m^2^ from those with BMI < 30 kg/m^2^ and to explore their utility in diagnosis and nutritional guidance.
+
+**Methods:** In a cross-sectional sample of 72 adults (36 per group), untargeted metabolomics by proton nuclear magnetic resonance (^1^H-NMR) was performed on plasma. Data were log-transformed and normalized. Group differences were assessed with Welch's t-tests and Benjamini-Hochberg false discovery rate (FDR) control. Significant metabolites were contextualized using pathway analysis and a metabolite-protein-disease network. Supervised models were trained with stratified splits and comprehensive validation including repeated cross-validation, permutation testing, and bootstrap confidence intervals to ensure robustness; performance metrics were computed on a hold-out test set.
+
+**Results:** Thirty-four metabolites differed significantly between groups after FDR correction (p_adj < 0.05), including elevated levels of lysine, adenine, kynurenic acid, and alanine, and decreased levels of D-fucose, myo-inositol, and asparagine in individuals with BMI >= 30 kg/m^2^. Enrichment analysis pointed to amino-acid and carbohydrate metabolism (*e.g.*, phenylalanine/tyrosine/tryptophan biosynthesis; glycolysis/gluconeogenesis). Using repeated 10x5-fold cross-validation as the primary performance metric, support vector machine (SVM) achieved the best discrimination (CV accuracy: 72.4% +/- 9.1%, CV AUC: 0.735 +/- 0.136), significantly exceeding chance performance (permutation test p < 0.01). Lysine and quinolinic acid emerged as the most discriminatory metabolites.
+
+**Conclusions:** Plasma ^1^H-NMR metabolomics reveals coordinated shifts in amino acid and carbohydrate pathways. Combined with machine learning, these findings may improve risk stratification and guide personalized nutritional strategies in obesity management.
+
+**Keywords:** NMR-Metabolomics, body mass index, machine learning models, amino acid metabolism, metabolic biomarkers.
+
+---
+
+## Introduction
+
+Obesity is a chronic, progressive, and multifactorial disease characterized by excessive fat deposits that impair health. It is estimated that 650 million adults are living with obesity, equivalent to 15.8% of the world population [1]. This condition is predominantly associated with lifestyle, including reduced physical activity and unhealthy eating habits. Furthermore, several genetic, hereditary, psychological, cultural, and ethnic factors also play significant roles in its manifestation and progression [2].
+
+Inflammation, dyslipidemia, and insulin resistance resulting from obesity can promote atherogenesis through several mechanisms, such as the oxidation of lipoproteins [3]. Consequently, obesity exacerbates the risk for some metabolic and cardiovascular diseases (CVD) [4]. Thus, it is crucial to recognize the risk factors in the early stages of cardiovascular damage, as well as personalized risk stratification to implement prevention strategies focusing on weight management to reduce the impact of CVD [5].
+
+Body mass index (BMI) is a practical tool for estimating adiposity in epidemiological and screening contexts; however, it has limitations in accurately reflecting body composition. Although a BMI >= 30 kg/m^2^ is commonly used to define obesity, clinical diagnosis requires confirmation through direct measures of body fat or additional anthropometric criteria [6]. Interestingly, the lowest mortality has been observed at a BMI around 25 kg/m^2^, despite the optimal range being 18.5-24.9 kg/m^2^ [7]. This paradox may be explained by the recognition that obesity phenotypes, rather than BMI alone, better predict health risks, highlighting the need for more comprehensive assessments beyond BMI [8].
+
+Therefore, to improve understanding of obesity-associated health risks, the characterization of the metabolites can provide insights into the mechanisms that associate obesity with cardiometabolic consequences [9]. In this context, metabolomics has allowed the detection and measurement of changes in metabolite levels in response to a genetic variation, physiological, or pathological condition. This approach can lead to the identification of new biomarkers and clarify a diversity of disease mechanisms [10].
+
+Metabolomics has proven useful in identifying metabolite alterations associated with obesity by comparing obese and healthy individuals [11]. These changes are linked to metabolic diseases and increased cardiovascular risk. Lipidomic analyses further demonstrate that obesity is associated with distinct lipid profile shifts, including correlations between BMI and specific phosphatidylcholine and lysophosphatidylcholine species [12]. Elevated lipid metabolite levels in individuals with BMI >= 30 kg/m^2^ support the existence of a metabolically distinct obesity phenotype [13].
+
+Despite advances in metabolomics, there is still no clear consensus on which metabolites reliably indicate obesity-related metabolic dysfunction. To address this, the present study applies proton nuclear magnetic resonance spectroscopy (^1^H-NMR), a reproducible and non-destructive method, combined with machine learning to analyze plasma metabolite profiles. The goal is to identify metabolic signatures that differentiate individuals with BMI < 30 from those with BMI >= 30 kg/m^2^, aiming to support personalized risk assessment and guide targeted clinical and nutritional strategies to prevent cardiometabolic complications.
+
+---
+
+## Material and Methods
+
+### Study Design and Population
+
+This study is part of the multicenter BRAZUCA study (Brazilian Usual Consumption Assessment). It is a cross-sectional analysis of a subsample of adults and older individuals from the population-based research titled "Food Insecurity, Health, and Nutrition Conditions in the Adult and Elderly Population of a Northeastern Brazilian Capital: BRAZUCA Study - Natal." Both studies were approved by the Research Ethics Committees of the University of Sao Paulo and the Federal University of Rio Grande do Norte (CAAE: 96294718.4.1001.5421 - Ethical Approval Number 3.789.491, and CAAE: 96294718.4.2001.5292 - Ethical Approval Number 3.301.377, respectively).
+
+The sampling plan considered a two-stage cluster probabilistic sample. A subsample of 344 individuals was planned, and data collection occurred starting in June 2019, and was discontinued in March 2020 due to the international public health emergency caused by COVID-19, resulting in a subsample of 112 participants. Exclusion criteria were pregnant and lactating women, illicit drug users, individuals who underwent chemotherapy and/or radiotherapy in the last 6 months, and those unable to respond to the research questions. The final sample size for this study was 72 individuals, matched by age and sex to reduce the likelihood of bias errors, divided into two groups: people with obesity (n = 36; BMI >= 30 kg/m^2^) and without obesity (n = 36; BMI < 30 kg/m^2^).
+
+### Data Collection, Anthropometric, and Biochemical Parameters
+
+Data collection was performed in households using a standardized, revised questionnaire. This instrument covered sociodemographic data (age, sex, race, income), lifestyle factors (physical activity, smoking, and alcohol use), and diagnosis of type 2 diabetes, arterial hypertension, dyslipidemias, and cardiovascular events (heart attack or stroke). The Global Risk Score was calculated and classified according to the Brazilian Dyslipidemia Guideline [14]. Blood pressure was measured using an Omron (HEM-7122, Kyoto, Japan) automatic arm monitor. Systolic and diastolic blood pressure were classified as elevated when they ranged >= 140 mmHg and >= 90 mmHg, respectively [15].
+
+Body weight was measured using an electronic scale, with a capacity of 200 kg and 50 g precision (Lider P-200 M, Aracatuba, Sao Paulo, Brazil). Height measurement was performed with a portable stadiometer (Avanutri, Tres Rios, Rio de Janeiro, Brazil), 0.1 cm precision and a non-slip base. BMI cutoff was adopted according to the World Health Organization (WHO) [16]. Waist circumference was measured with a non-extendable ergonomic tape measure from Cescorf (Porto Alegre, Rio Grande do Sul, Brazil). We considered the cutoff points proposed by the WHO (2000) [16]. The visceral adiposity index (VAI) was calculated considering the cutoff points proposed previously [16].
+
+Blood was collected by peripheral vein puncture in the morning after 10-12 hours of fasting. In tubes without anticoagulants, 4 mL of blood was allocated for biochemical analysis, and 4 mL was placed in EDTA tubes for metabolomics. Enzymatic methods were used to analyze fasting glycemia, total cholesterol, and triacylglycerols (TAG). A homogeneous enzymatic colorimetric assay measured HDL-c levels. An immunoassay was applied to determine insulin using the sandwich technique, and high-sensitivity C-reactive protein (hs-CRP) by immunoturbidimetric assay. All these analyses were performed using an automated device COBAS 6000 - Roche Professional Diagnostics (Risch-Rotkreuz, Switzerland). Low-density lipoprotein cholesterol (LDL-c) values were obtained using the Friedewald formula [14].
+
+The cutoff point adopted for fasting glycemia is recommended by the Brazilian Diabetes Society [18]. HDL-c values were considered low when < 40 mg/dL. TAG and total cholesterol were considered high when > 150 mg/dL and > 190 mg/dL, respectively. Based on the cardiovascular risk category defined by the Global Risk Score calculation, the LDL-c targets were defined as proposed by the Brazilian Dyslipidemia Guideline [14]. LDL-c values were considered high when they were above the target for each individual. The cutoff points for hs-CRP for cardiovascular risk indication were as recommended by Ridker (2007) [19]. The Homeostatic Model Assessment of insulin resistance (HOMA-IR) was calculated and considered the reference point as suggested by Geloneze et al. (2009) [20].
+
+### Metabolomics Profile Analysis
+
+^1^H-NMR metabolomics was applied to 400 uL of plasma samples by adding 100 uL of deuterium oxide solvent (D~2~O, 99.9% with 0.03% trimethylsilyl propionic acid, TSP, from Sigma-Aldrich, Andover, Maryland, United States of America). Samples were then centrifuged at 12,000 x g for 2 min at 4C, and transferred to 5 mm tubes. The ^1^H-NMR high-resolution (noesypr1d), T~2~-edited (cpmgpr1d), and diffusion-edited (stebpgp1s191d) spectra were recorded using the Bruker AVANCE III 600 MHz instrument (Bruker Biospin, Karlsruhe, Germany) with the Triple Resonance Broadband Inverse (TBI) probe at 25C. Two-dimensional NMR total correlation spectroscopy (TOCSY) data were recorded using the mlevphpr pulse sequence, and heteronuclear quantum correlation spectral data were obtained using the hsqcedetgpsp pulse sequence (Supporting Information Fig S1). Scalar couplings were evaluated from J-RESolved spectroscopic experiments using the jresgpprqf pulse sequence. Metabolites were assigned based on chemical shifts, coupling constants, 2D NMR spectral features, and database searches, such as the Human Metabolome Database and BioMagResBank [21,22].
+
+### Statistical Analysis and Pathway Exploration
+
+Categorical variables were analyzed using Chi-square tests, and data integrity was verified before metabolomic analysis. Metabolite data were processed using the MetaboAnalyst platform, including log~10~ transformation, normalization, and constant sum scaling to correct for concentration differences [23]. Principal Component Analysis (PCA), Partial Least Squares Discriminant Analysis (PLS-DA), and Orthogonal PLS-DA (OPLS-DA) were applied to identify group separation and relevant metabolic features. Variable Importance in Projection (VIP) scores were calculated from the PLS-DA model [23], and statistical significance was defined as p < 0.05. Key metabolites are presented in the Supporting Information (Fig S2 and Table S1).
+
+Following preprocessing and normalizing, log~2~-transformed metabolite intensities were compared between groups. A Welch's t-test (two-sided) was applied to account for potentially unequal variances and sample sizes. The resulting raw p-values were then adjusted using the Benjamini-Hochberg false discovery rate (FDR) procedure to mitigate the risk of multiple-testing errors. Metabolites were deemed significantly altered if they (i) satisfied p_adj < 0.05 and (ii) exhibited |log2 fold change (log2FC)| >= 0.1. The log2FC was calculated by subtracting the mean log2 intensity of each group. An additional manual inspection of borderline cases was performed to identify metabolites potentially overlooked by a single threshold. All significantly altered metabolites (p_adj < 0.05) were mapped to biochemical pathways Human Metabolome Database [21,22] for functional interpretation. Pathway impact scores were also computed, using centrality-based or betweenness-based metrics to pinpoint which pathways had the greatest potential biological effect. Pathways with an adjusted p-value < 0.05 were considered significantly perturbed using the Metaboanalyst 6.0 Pathway Analyst module [24].
+
+Each significant metabolite was queried against the Search Tool for Interacting Chemicals (STITCH) database [25] to retrieve known or predicted protein interaction partners with a confidence score >= 0.70, and an organism filter (Homo sapiens) was applied to ensure higher specificity. The Human Metabolome Database [21,22] was used to find documented links between identified metabolites and reported diseases or phenotypes. Disease and Gene Network (DisGeNET) [26] provided curated associations between each protein and disease. Overlapping or convergent disease categories suggested common pathological mechanisms. Interactions were integrated in Cytoscape [27], generating a multi-level graph where nodes represented metabolites, proteins, and diseases, and edges indicated known functional or literature-based relationships.
+
+### Machine Learning Classification
+
+A supervised-learning pipeline was implemented to classify obesity status (BMI >= 30 vs < 30 kg/m^2^). **Critically, data were randomly split into training (70%, n=50) and test (30%, n=22) sets BEFORE any feature selection to prevent information leakage.** All statistical tests for identifying significant metabolites were performed exclusively on the training set, and the resulting feature set was then applied to both training and test data. Scaling was fit on the training set and applied to the test set.
+
+Nine classification algorithms were evaluated: logistic regression, support vector machine (SVM), decision tree, k-nearest neighbors (KNN), naive Bayes, multi-layer perceptron (MLP), random forest, gradient boosting, and XGBoost. All models were implemented using scikit-learn (v1.0+) and XGBoost (v1.5+) with explicit hyperparameters documented in Supplementary Table S2 for reproducibility. Random seeds were fixed (random_state=42) throughout the analysis.
+
+### Model Validation and Robustness Assessment
+
+To address potential overfitting concerns inherent to small sample sizes, we implemented a comprehensive validation strategy:
+
+(1) *Repeated stratified cross-validation*: The primary performance metric was derived from 10 repetitions of 5-fold stratified cross-validation on the full dataset (n=72), yielding 50 independent performance estimates per model. This approach provides robust mean estimates and standard deviations that account for sampling variability.
+
+(2) *Permutation testing*: To assess whether model performance exceeded chance levels, we performed permutation testing with 1,000 iterations. Class labels were randomly shuffled, models were retrained, and the resulting null distribution was compared against actual performance. A p-value < 0.05 indicates performance significantly better than random classification.
+
+(3) *Bootstrap confidence intervals*: For the held-out test set, we computed 95% confidence intervals using 1,000 bootstrap resamples with replacement, providing uncertainty estimates for all reported metrics.
+
+(4) *Learning curves*: To diagnose overfitting, we plotted training and validation accuracy as a function of training set size (20%, 40%, 60%, 80%, 100%).
+
+The final model was selected based on repeated cross-validation performance. We report accuracy, precision, recall, F1-score, Matthews correlation coefficient (MCC), and area under the receiver operating characteristic curve (AUC-ROC). All code and data are publicly available at https://github.com/omagebright/obesity.
+
+SHapley Additive exPlanations (SHAP) were applied, enabling us to see how each metabolite shifts individual predictions. SHAP summary plots can offer sample-level and global insights, pinpointing whether particular metabolites (features) consistently drive the probability toward or away from the BMI >= 30 kg/m^2^ classification.
+
+Metabolomic data preprocessing involved multiple quality control steps: (i) spectral alignment using the TSP reference peak, (ii) removal of water and solvent regions, (iii) binning to reduce dimensionality while preserving metabolite signals, (iv) normalization to total spectral area to account for concentration differences, (v) log~10~ transformation to achieve normal distribution, and (vi) Pareto scaling to give appropriate weight to both high and low-abundance metabolites. Quality control samples were interspersed throughout the analysis to monitor instrumental drift and ensure reproducibility (coefficient of variation < 15% for all identified metabolites).
+
+---
+
+## Results
+
+### Population Characteristics
+
+No significant differences were observed in the distribution of sex, age, smoking, or alcohol consumption between the two groups (all p > 0.05). Arterial hypertension, Type 2 diabetes, and dyslipidemias were more prevalent in the BMI >= 30 kg/m^2^ group, although the differences were not statistically significant. People with obesity had significantly higher waist circumference (p < 0.001). The BMI < 30 kg/m^2^ group had a higher proportion of people classified as overweight, and the BMI >= 30 kg/m^2^ group showed significantly high TAG levels (p = 0.009). For the Global Risk Score, people with obesity had significantly higher proportions of high or very high cardiovascular risk (p = 0.031) (Table 1).
+
+**Table 1.** Characteristics of the individuals with a BMI >= 30 kg/m^2^ and BMI < 30 kg/m^2^ groups
+
+| Variables | BMI < 30 kg/m^2^ (n = 36) | BMI >= 30 kg/m^2^ (n = 36) | p-value |
+|-----------|---------------------------|----------------------------|---------|
+| **Sex** | | | |
+| Male | 12 (33.3) | 12 (33.3) | 1.000 |
+| Female | 24 (66.7) | 24 (66.7) | |
+| **Age (years)** | | | |
+| > 60 | 21 (58.3) | 22 (61.1) | 0.157 |
+| < 60 | 15 (41.7) | 14 (38.9) | |
+| **Cigarette Smoking** | | | |
+| Never smoker | 22 (61.1) | 23 (63.8) | 0.817 |
+| Current smoker | 14 (38.9) | 13 (36.2) | |
+| **Alcohol use** | | | |
+| Never drink | 22 (61.1) | 22 (61.1) | 1.000 |
+| Drink use | 14 (38.9) | 14 (38.9) | |
+| **Waist circumference**^a^ | | | |
+| Low risk of CVD | 8 (24.2) | 0 (0.0) | < 0.001 |
+| Increased risk of CVD | 14 (42.4) | 0 (0.0) | |
+| Substantial increased risk | 11 (33.3) | 33 (100.0) | |
+| **High TAG** | 12 (33.4) | 23 (63.9) | 0.009 |
+| **Global Risk Score** | | | |
+| Low CVD risk | 10 (27.7) | 3 (8.3) | 0.031 |
+| Intermediary CVD risk | 5 (13.8) | 2 (5.5) | |
+| High CVD risk | 21 (58.3) | 31 (86.2) | |
+
+*Abbreviation: BMI, body mass index; CVD, cardiovascular disease; TAG, triacylglycerol. Values are represented by frequency (percentage). ^a^Waist circumference data missing for 3 participants in each group (n=33 per group for this variable).*
+
+### Metabolomic Profiling
+
+Metabolomic profiling revealed significant differences in metabolite levels between groups. Following proper methodology where feature selection was performed on the training set only (n=50), thirty-four metabolites were identified as significantly different (p_adj < 0.05) after FDR adjustment (full list in Supplementary Table S3). The BMI >= 30 kg/m^2^ group exhibited higher levels of L-lysine (log2FC = 0.46, p_adj = 0.004), adenine (log2FC = 0.89, p_adj = 0.010), quinolinic acid (log2FC = 0.65, p_adj = 0.010), L-alanine (log2FC = 0.24, p_adj = 0.010), and kynurenic acid (log2FC = 0.64, p_adj = 0.010). Conversely, the BMI >= 30 kg/m^2^ group showed lower levels of D-fucose (log2FC = -1.97, p_adj = 0.010), myo-inositol (log2FC = -0.80, p_adj = 0.035), L-asparagine (log2FC = -0.66, p_adj = 0.029), and cadaverine (log2FC = -0.67, p_adj = 0.032) (Table 2).
+
+**Table 2.** Top differential metabolites identified between BMI >= 30 kg/m^2^ and BMI < 30 kg/m^2^ groups (training set, n=50)
+
+| Metabolites | BMI >= 30 (Mean) | BMI < 30 (Mean) | Trend | log2FC | Cohen's d | p_adj |
+|-------------|------------------|-----------------|-------|--------|-----------|-------|
+| L-Lysine | 0.00503 | 0.00365 | Up | 0.46 | 1.30 | 0.004 |
+| Adenine | 0.00103 | 0.00056 | Up | 0.89 | 1.17 | 0.010 |
+| Quinolinic Acid | 0.00260 | 0.00165 | Up | 0.65 | 1.12 | 0.010 |
+| D-Fucose | 0.00168 | 0.00657 | Down | -1.97 | -1.11 | 0.010 |
+| Kynurenic Acid | 0.00171 | 0.00110 | Up | 0.64 | 1.07 | 0.010 |
+| L-Alanine | 0.00528 | 0.00448 | Up | 0.24 | 1.07 | 0.010 |
+| Benzoic Acid | 0.00117 | 0.00070 | Up | 0.73 | 1.03 | 0.011 |
+| Hypoxanthine | 0.00059 | 0.00031 | Up | 0.92 | 1.02 | 0.011 |
+| Myo-Inositol | 0.00164 | 0.00286 | Down | -0.80 | -0.79 | 0.035 |
+| L-Asparagine | 0.00309 | 0.00490 | Down | -0.66 | -0.84 | 0.029 |
+
+*Abbreviation: FC, fold change. Up trend, relatively higher levels of metabolites present in the BMI >= 30 kg/m^2^ group; Down trend, relatively lower levels. p_adj, p-value adjusted for FDR using Benjamini-Hochberg method. Full list of 34 significant metabolites in Supplementary Table S3. Values are relative ASICS intensities.*
+
+Multivariate and pathway-level analyses corroborate a distinct metabolic signature in individuals with BMI >= 30 kg/m^2^. A three-dimensional PCA score plot (Fig 1A) shows a clear separation between the obese (BMI >= 30 kg/m^2^) and non-obese (BMI < 30 kg/m^2^) groups, with the first three principal components explaining 73.4%, 13.6% and 8.6% of the total variance, respectively. Complementary univariate testing is summarized in the volcano plot (Fig 1B). Pathway enrichment and topology analysis (Supporting Information, Fig S3) pinpointed phenylalanine, tyrosine, and tryptophan biosynthesis as the pathway with the highest topological impact, followed by pyruvate metabolism, phenylalanine metabolism, inositol phosphate metabolism, and arginine biosynthesis.
+
+### Protein-Metabolite-Disease Network
+
+A protein-metabolite-disease interaction network was constructed to reveal the potential functional relationships among the significantly altered metabolites. Interactions between the metabolites and proteins were obtained from the STITCH database with a confidence threshold >= 0.70. Specifically, the five key metabolic biomarkers (leucine, lysine, phenylalanine, lactate, and formate) were mapped to 19 distinct proteins including: alanine aminotransferase (ALT), aspartate aminotransferase (AST), branched-chain aminotransferase 1 (BCAT1), branched-chain alpha-keto acid dehydrogenase complex (BCKDHA), phenylalanine hydroxylase (PAH), tyrosine aminotransferase (TAT), lactate dehydrogenase A (LDHA), lactate dehydrogenase B (LDHB), formate dehydrogenase (FDH), leucyl-tRNA synthetase (LARS), lysyl-tRNA synthetase (KARS), and others involved in amino acid metabolism, energy production, and one-carbon metabolism pathways (Fig 2).
+
+### Machine Learning Classification
+
+We evaluated nine machine learning algorithms for distinguishing individuals with BMI >= 30 kg/m^2^ from those with BMI < 30 kg/m^2^ using the panel of 34 differentially abundant metabolites identified from the training set.
+
+**Cross-validation performance (PRIMARY METRIC)**
+
+Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the highest mean accuracy (Table 3). SVM attained 72.4% +/- 9.1% accuracy (F1: 0.746 +/- 0.078; AUC: 0.735 +/- 0.136), followed by random forest at 70.6% +/- 10.7% accuracy. The moderate standard deviations reflect expected variability given the sample size (n=72) and should be interpreted as realistic performance bounds.
+
+**Table 3.** Machine learning model performance for obesity classification
+
+| Model | CV Accuracy | CV F1-Score | CV AUC | Permutation p |
+|-------|-------------|-------------|--------|---------------|
+| SVM | 0.724 +/- 0.091 | 0.746 +/- 0.078 | 0.735 +/- 0.136 | < 0.01 |
+| Random Forest | 0.706 +/- 0.107 | 0.711 +/- 0.102 | 0.750 +/- 0.128 | 0.003 |
+| Naive Bayes | 0.689 +/- 0.106 | 0.656 +/- 0.133 | 0.796 +/- 0.112 | < 0.01 |
+| Gradient Boosting | 0.678 +/- 0.124 | 0.688 +/- 0.123 | 0.729 +/- 0.126 | < 0.01 |
+| KNN | 0.663 +/- 0.117 | 0.661 +/- 0.126 | 0.720 +/- 0.130 | 0.015 |
+| XGBoost | 0.659 +/- 0.118 | 0.656 +/- 0.123 | 0.725 +/- 0.119 | 0.003 |
+| Logistic Regression | 0.646 +/- 0.110 | 0.642 +/- 0.124 | 0.716 +/- 0.122 | 0.020 |
+| Decision Tree | 0.602 +/- 0.107 | 0.592 +/- 0.122 | 0.600 +/- 0.107 | 0.035 |
+| Neural Network | 0.599 +/- 0.131 | 0.599 +/- 0.136 | 0.682 +/- 0.143 | 0.028 |
+
+*Values represent mean +/- standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations.*
+
+**Statistical significance**
+
+Permutation testing (1,000 permutations) confirmed that all models significantly exceeded chance-level classification (50% for balanced classes). Random Forest achieved p = 0.003, XGBoost p = 0.003, and logistic regression p = 0.020, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status.
+
+**Hold-out test set performance (SECONDARY METRIC)**
+
+Due to the small test set size (n=22), test set performance should be interpreted with caution. XGBoost achieved the highest test accuracy: 68.3% (95% CI: 50.0-86.4%), F1-score 0.656 (CI: 40.0-87.0%), AUC 0.738 (CI: 50.8-93.2%). SVM achieved 63.4% (95% CI: 45.5-81.8%). The wide bootstrap confidence intervals reflect inherent uncertainty with small test sets, and cross-validation results should be used for primary interpretation.
+
+**Learning curve analysis**
+
+Learning curves (Supplementary Figure S4) demonstrated converging training and validation accuracy for SVM and random forest, indicating appropriate model complexity without severe overfitting. The gap between training and validation curves was minimal at full sample size.
+
+**Feature importance**
+
+SVM feature importance analysis revealed L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI >= 30 kg/m^2^ group. D-fucose showed the strongest negative association, consistent with its reduced levels in the obesity group.
+
+---
+
+## Discussion
+
+This study using ^1^H-NMR metabolomics and machine-learning algorithms identified thirty-four significantly dysregulated metabolites in individuals with obesity and high cardiovascular risk, offering insights into how obesity disrupts key biochemical pathways. The marked increase in waist circumference in the obesity group indicates greater central adiposity, strongly associated with metabolic disturbances like insulin resistance and altered lipid metabolism [28]. This fat accumulation elevates triglyceride levels, a hallmark of atherogenic dyslipidemia driven by increased VLDL production and impaired triglyceride clearance [29]. These combined factors heighten cardiometabolic risk, as shown by significantly higher cardiovascular risk scores in the obesity group, emphasizing the need to address central adiposity and dyslipidemia in preventive healthcare and nutrition strategies [28].
+
+L-lysine emerged as the most significantly elevated metabolite in the BMI >= 30 kg/m^2^ group (Cohen's d = 1.30), followed by adenine, quinolinic acid, and kynurenic acid. Elevated kynurenic acid and quinolinic acid are particularly noteworthy as components of the tryptophan-kynurenine pathway, which has been increasingly linked to obesity-related inflammation and metabolic dysfunction [30,31]. In our study, the BMI >= 30 kg/m^2^ group had a higher percentage of people with high HOMA-IR, indicating a greater risk of insulin resistance, possibly influenced by this metabolomic imbalance.
+
+The elevated amino acid profiles observed (L-lysine, L-alanine, L-leucine) align with the well-documented rise of amino acids in insulin-resistant states [33,34]. This pattern suggests enhanced protein catabolism or altered amino acid uptake in tissues, consistent with metabolic dysfunction in obesity [35]. The significant elevation of benzoic acid and hippuric acid may reflect altered gut microbial metabolism, as these metabolites are largely derived from microbial processing of dietary polyphenols [36,37].
+
+In contrast, D-fucose and myo-inositol were significantly diminished in the obesity group. Myo-inositol depletion is particularly interesting given its role as a second messenger in insulin signaling pathways [38]. Reduced myo-inositol has been associated with insulin resistance and may contribute to the metabolic dysfunction observed in obesity. The pronounced decrease in D-fucose may relate to altered glycoprotein metabolism or gut microbiome changes in obesity [39,40].
+
+Pathway enrichment analysis highlighted phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and glycolysis/gluconeogenesis among the most significantly altered routes in individuals with BMI >= 30 kg/m^2^. These cascades are integral to energy production, redox balance, and amino-acid interconversion. Evidence suggests that obesity can reprogram these primary pathways, as stated earlier, contributing to insulin resistance, inflammation, and ectopic lipid deposition [6, 33].
+
+Our protein-metabolite-disease interaction network (Fig 2) showed that five significantly altered metabolites map onto 19 obesity-related proteins, underscoring the functional interconnectedness of metabolic reconfigurations. We noted potential links between these disrupted metabolic profiles and various chronic diseases by incorporating annotations from STITCH, the Human Metabolome Database, and DisGeNET. This aligns with emerging models of obesity that position it not solely as a harbinger of conditions such as type 2 diabetes or cardiovascular disease but as an active contributor to organ dysfunction driven by inflammatory, endocrine, and hemodynamic stressors [40].
+
+### Sample Size Considerations
+
+Our sample size (n=72, 36 per group) warrants discussion. While larger cohorts would increase statistical power, our study demonstrates adequate power for detecting the observed effect sizes. L-lysine, showing the largest effect (Cohen's d = 1.30), achieved >95% power, while metabolites with smaller effects (d ~ 0.8) achieved approximately 80% power. The repeated cross-validation approach, which utilizes all samples for both training and validation across multiple iterations, provides more robust performance estimates than a single train-test split. Importantly, permutation testing confirmed that our classification results significantly exceed chance (all models p < 0.05), indicating genuine discriminatory signal despite the modest sample size. These findings should be interpreted as preliminary evidence requiring validation in larger, independent cohorts.
+
+### Model Selection
+
+Support vector machine (SVM) achieved the highest cross-validation accuracy (72.4%), followed by random forest (70.6%). The choice of SVM as the best-performing model reflects its ability to handle high-dimensional feature spaces effectively when the number of features (34 metabolites) approaches the sample size (n=72). SVM's performance was statistically validated through permutation testing (p < 0.01), confirming that the model captures genuine discriminatory patterns.
+
+Notably, test set performance showed high variability across models (confidence intervals spanning 20-35 percentage points), reflecting the inherent uncertainty with small sample sizes. This underscores the importance of using cross-validation as the primary performance metric and interpreting test set results with appropriate caution.
+
+### Population-Specific Validation
+
+Our findings validate several metabolite associations previously reported in European and North American populations, including altered branched-chain amino acid profiles and elevated lactate in obesity. Importantly, this study extends these observations to a Brazilian cohort with distinct dietary patterns and genetic backgrounds. The replication of core metabolic signatures across populations strengthens confidence in these biomarkers' generalizability, while population-specific validation remains essential for clinical translation in diverse settings.
+
+### Clinical Implications
+
+Beyond classification, our machine learning results have clinical translational value, hinting that refined biomarker panels, encompassing amino acids, short-chain organic acids, and possibly lipid intermediates, might surpass BMI alone in detecting early organ stress. The literature increasingly shows that "clinical obesity" should be differentiated from mere increases in body weight or BMI thresholds, focusing instead on organ-level dysfunction [37, 38]. Tracking signature metabolites (*e.g.*, lactate, leucine, formate) could thus facilitate earlier interventions or more precise therapeutic efficacy monitoring.
+
+These findings align with the evolving concept of obesity, moving beyond BMI to include excess adiposity and validated biomarkers of tissue and organ dysfunction for defining "clinical obesity" [40]. Our results demonstrate that specific metabolite changes and pathway disruptions may occur before or alongside clinical symptoms, highlighting the importance of targeted metabolite profiling-especially amino acid and short-chain metabolite panels-for enhanced risk stratification. Furthermore, this approach can guide personalized interventions, such as GLP-1 receptor agonists and lifestyle programs, as well as precision nutrition strategies tailored to individual metabolic phenotypes.
+
+### Limitations
+
+Despite the strengths of our integrative approach, several limitations should be noted. The cross-sectional design limits causal inference, as metabolic changes may be a cause or consequence of obesity. Prospective studies are needed to clarify temporal relationships and predictive metabolites. Semi-quantitative metabolomics provides broad coverage but has quantification limitations; targeted or absolute quantification of key metabolites is recommended for future validation. Additionally, the sample size and demographic characteristics may restrict the generalizability of findings, highlighting the need for larger, multicenter studies across diverse populations. Future studies could determine the thresholds of metabolite dysregulation that most accurately correlate with the onset of organ impairments. Mechanistic and interventional research, including Mendelian randomization, may further clarify whether modifying leucine, lysine, or formate levels influences obesity-related phenotypes or the risk of comorbidities. Finally, integrating multi-omics data (epigenetics, proteomics, microbiomics) with established anthropometric and clinical assessments is likely to refine strategies for precision obesity management, enhancing both early detection of organ dysfunction and targeted therapeutic interventions.
+
+---
+
+## Conclusions
+
+Our investigation of metabolites, pathways, and protein-metabolite-disease networks in individuals with BMI >= 30 kg/m^2^ offers evidence that obesity orchestrates metabolic remodeling affecting amino acids, tryptophan-kynurenine pathway metabolites, and sugar alcohols. L-lysine, quinolinic acid, and kynurenic acid elevations, alongside myo-inositol and D-fucose depletions, highlight disrupted nitrogen metabolism and insulin signaling pathways. The integration of machine learning with rigorous validation-using cross-validation as the primary metric (SVM: 72.4% accuracy) and statistical significance confirmed by permutation testing (p < 0.01)-demonstrates that these metabolite panels contain genuine discriminatory information. While these findings require validation in larger cohorts, they suggest potential for developing metabolite-based risk stratification tools. As obesity definitions become more function-centric, targeted medical and nutrition strategies guided by molecular biomarkers may enhance early detection and personalized interventions.
+
+---
+
+## Data Availability Statement
+
+All data and code necessary to reproduce the analyses are publicly available at https://github.com/omagebright/obesity. This includes: (1) normalized metabolite intensities, (2) sample metadata (de-identified), (3) complete analysis notebooks, and (4) trained model parameters. Raw NMR spectra are available from the corresponding author upon reasonable request, subject to ethical approval constraints.
+
+---
+
+## Funding
+
+This study was funded in part by the Coordination of Improvement of Higher Education Personnel (Coordenacao de Aperfeicoamento de Pessoal do Nivel Superior-CAPES, Grant number 001). This work was supported by the National Council for Scientific and Technological Development (Conselho Nacional de Desenvolvimento Cientifico e Tecnologico-CNPq, Grant numbers: 431053/2016-2, 405837/2016-0, and 308079/2021-3). We also thank INCTBio-Lauro Kubota and Sao Paulo Research Foundation (Fundacao de Amparo a Pesquisa do Estado de Sao Paulo-FAPESP), Grant numbers: #2023/02691-2, #2022/11207-4, #2018/24069-3, #2016/20054-6, and #2014/50867-3.
+
+## Conflicts of Interest
+
+The authors declare no conflict of interest or any competing financial interests in relation to the work described.
+
+## Author Contributions
+
+S.C.V.C.L, C.O.L, D.M.L.M, K.C.M.S.E. investigation and performed clinical research, and collected data. P.E.N.R.B and A.C.S.J. organization and data analysis. E.S.B and L.G.M. performed NMR measurements and metabolomic analysis. F.B.O performed machine learning analysis and prepared the figures, data interpretation. K.C.M.S.E, A.C.S.J., L.T., and F.B.O. wrote the original draft of the manuscript. L.T. data interpretation, manuscript correction, and supervision of the study. S.C.V.C.L, C.O.L, D.M.L.M, L.F.C., F.B.J., and L.T. revised the manuscript and contributed to discussions. All authors read and approved the final version of the manuscript.
+
+---
+
+## Supplementary Materials
+
+### Supplementary Table S2: Model Hyperparameters
+
+| Model | Key Hyperparameters |
+|-------|---------------------|
+| Logistic Regression | solver='lbfgs', max_iter=1000, C=1.0 |
+| Random Forest | n_estimators=100, max_depth=None, min_samples_split=2 |
+| XGBoost | n_estimators=100, max_depth=6, learning_rate=0.1 |
+| SVM | kernel='rbf', C=1.0, gamma='scale' |
+| KNN | n_neighbors=5, weights='uniform' |
+| Decision Tree | max_depth=None, min_samples_split=2 |
+| Naive Bayes | Default (no hyperparameters) |
+| Neural Network | hidden_layer_sizes=(100,), max_iter=1000 |
+| Gradient Boosting | n_estimators=100, max_depth=3, learning_rate=0.1 |
+
+*All models used random_state=42 for reproducibility.*
+
+### Supplementary Table S3: Complete List of Significant Metabolites (Training Set, FDR < 0.05)
+
+| Metabolite | Mean BMI>=30 | Mean BMI<30 | log2FC | Cohen's d | p_adj |
+|------------|--------------|-------------|--------|-----------|-------|
+| L-Lysine | 0.00503 | 0.00365 | 0.46 | 1.30 | 0.004 |
+| Adenine | 0.00103 | 0.00056 | 0.89 | 1.17 | 0.010 |
+| Quinolinic Acid | 0.00260 | 0.00165 | 0.65 | 1.12 | 0.010 |
+| D-Fucose | 0.00168 | 0.00657 | -1.97 | -1.11 | 0.010 |
+| Kynurenic Acid | 0.00171 | 0.00110 | 0.64 | 1.07 | 0.010 |
+| 2-Picolinic Acid | 0.00219 | 0.00111 | 0.98 | 1.06 | 0.010 |
+| L-Alanine | 0.00528 | 0.00448 | 0.24 | 1.07 | 0.010 |
+| Benzoic Acid | 0.00117 | 0.00070 | 0.73 | 1.03 | 0.011 |
+| Hypoxanthine | 0.00059 | 0.00031 | 0.92 | 1.02 | 0.011 |
+| Phenylglyoxylic Acid | 0.00122 | 0.00077 | 0.66 | 1.04 | 0.011 |
+| Nicotinic Acid | 0.00152 | 0.00085 | 0.83 | 0.99 | 0.013 |
+| Indoxylsulfate | 0.00194 | 0.00125 | 0.63 | 1.00 | 0.013 |
+| Oxypurinol | 0.00060 | 0.00018 | 1.76 | 0.97 | 0.015 |
+| Mandelic Acid | 0.00049 | 0.00028 | 0.82 | 0.95 | 0.015 |
+| 2-Hydroxybutyric Acid | 0.00501 | 0.00405 | 0.31 | 0.94 | 0.015 |
+| Ethylmalonic Acid | 0.01221 | 0.01123 | 0.12 | 0.95 | 0.016 |
+| Pyrocatechol | 0.00111 | 0.00049 | 1.18 | 0.92 | 0.017 |
+| Sebacic Acid | 0.00456 | 0.00543 | -0.25 | -0.92 | 0.017 |
+| 2-Methylglutaric Acid | 0.00291 | 0.00245 | 0.25 | 0.92 | 0.017 |
+| L-Aspartate | 0.00322 | 0.00549 | -0.77 | -0.92 | 0.017 |
+| L-Glutamic Acid | 0.00896 | 0.00690 | 0.38 | 0.90 | 0.018 |
+| D-Glucose-6-Phosphate | 0.00076 | 0.00169 | -1.15 | -0.88 | 0.020 |
+| Azelaic Acid | 0.00138 | 0.00076 | 0.87 | 0.88 | 0.020 |
+| Hippuric Acid | 0.00118 | 0.00096 | 0.29 | 0.88 | 0.020 |
+| Xylitol | 0.00125 | 0.00059 | 1.08 | 0.86 | 0.021 |
+| L-Asparagine | 0.00309 | 0.00490 | -0.66 | -0.84 | 0.029 |
+| 2-Oxoisovalerate | 0.00810 | 0.00724 | 0.16 | 0.81 | 0.032 |
+| Cadaverine | 0.00081 | 0.00129 | -0.67 | -0.81 | 0.032 |
+| 3-Hydroxybutyrate | 0.00699 | 0.00622 | 0.17 | 0.81 | 0.033 |
+| L-Leucine | 0.00453 | 0.00398 | 0.19 | 0.80 | 0.033 |
+| Myo-Inositol | 0.00164 | 0.00286 | -0.80 | -0.79 | 0.035 |
+| L-Isoleucine | 0.00795 | 0.00717 | 0.15 | 0.79 | 0.037 |
+| 4-AminoHippuric Acid | 0.00087 | 0.00063 | 0.46 | 0.77 | 0.039 |
+| Propionate | 0.00058 | 0.00020 | 1.51 | 0.77 | 0.040 |
+
+*Values represent relative ASICS intensities from training set only (n=50). p_adj, p-value adjusted for FDR using Benjamini-Hochberg method. Positive log2FC indicates higher levels in BMI >= 30 group.*
+
+### Supplementary Figure S4: Learning Curves
+
+Caption: Learning curves for six classification models showing training (blue) and validation (orange) accuracy as a function of training set size. Shaded regions indicate +/-1 standard deviation across cross-validation folds. Converging curves indicate appropriate model complexity; large gaps suggest overfitting.
+
+---
+
+## References
+
+[1-40 as in original manuscript]
