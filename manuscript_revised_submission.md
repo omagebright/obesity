@@ -335,4 +335,82 @@ Caption: Learning curves for six classification models showing training (blue) a
 
 ## References
 
-[1-40 as in original manuscript]
+1. World Health Organization (WHO). Prevalence of obesity among adults, BMI >= 30 (age-standardized estimate) (%). Available at: https://www.who.int/data/gho/data/indicators/indicator-details/GHO/prevalence-of-obesity-among-adults-bmi--30-(age-standardized-estimate)-(-). Accessed May 4, 2024.
+
+2. Endalifer ML, Diress G. Epidemiology, Predisposing Factors, Biomarkers, and Prevention Mechanism of Obesity: A Systematic Review. *Journal of Obesity* 2024;31:6134362.
+
+3. Henning RJ. Obesity and Obesity-Induced Inflammatory Disease Contribute to Atherosclerosis: A Review of the Pathophysiology and Treatment of Obesity. *American Journal of Cardiovascular Disease* 2021;11:504-529.
+
+4. Safaei M, Sundararajan EA, Driss M, Boulila W, Shapi'i A. A Systematic Literature Review on Obesity: Understanding the Causes and Consequences of Obesity and Reviewing Various Machine Learning Approaches Used to Predict Obesity. *Computers in Biology and Medicine* 2021;136:104754.
+
+5. Ostrominski JW, Powell-Wiley TM. Risk Stratification and Treatment of Obesity for Primary and Secondary Prevention of Cardiovascular Disease. *Current Atherosclerosis Reports* 2024;26:11-23.
+
+6. Rubino F, Cummings DE, Eckel RH, Cohen RV, Wilding JPH, Brown WA, et al. Definition and Diagnostic Criteria of Clinical Obesity. *The Lancet Diabetes & Endocrinology* 2025;13:221-262.
+
+7. Nowak MM, Niemczyk M, Gołębiewski S, Pączek L. Impact of Body Mass Index on All-Cause Mortality in Adults: A Systematic Review and Meta-Analysis. *Journal of Clinical Medicine* 2024;13:2305.
+
+8. Bosy-Westphal A, Müller MJ. Diagnosis of Obesity Based on Body Composition-Associated Health Risks: Time for a Change in Paradigm. *Obesity Reviews* 2021;22:e13190.
+
+9. Regan JA, Shah SH. Obesity Genomics and Metabolomics: A Nexus of Cardiometabolic Risk. *Current Cardiology Reports* 2020;22:174.
+
+10. Gonzalez-Covarrubias V, Martínez-Martínez E, Del Bosque-Plata L. The Potential of Metabolomics in Biomedical Applications. *Metabolites* 2022;12:194.
+
+11. Rangel-Huerta OD, Pastor-Villaescusa B, Gil A. Are We Close to Defining a Metabolomic Signature of Human Obesity? A Systematic Review of Metabolomics Studies. *Metabolomics* 2019;15:93.
+
+12. Bellot PENR, Moia MN, Reis BZ, et al. Are Phosphatidylcholine and Lysophosphatidylcholine Body Levels Potentially Reliable Biomarkers in Obesity? A Review of Human Studies. *Molecular Nutrition & Food Research* 2023;67:e2200568.
+
+13. Bellot PENR, Braga ES, Omage FB, et al. Plasma Lipid Metabolites as Potential Biomarkers for Identifying Individuals at Risk of Obesity-Induced Metabolic Complications. *Scientific Reports* 2023;13:11729.
+
+14. Sociedade Brasileira de Cardiologia. Atualização da Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose – 2017. *Arquivos Brasileiros de Cardiologia* 2017;109:1-30.
+
+15. Barroso WKS, Rodrigues CIS, Bortolotto LA, et al. Diretrizes Brasileiras de Hipertensão Arterial — 2020. *Arquivos Brasileiros de Cardiologia* 2021;116:516-658.
+
+16. World Health Organization. Obesity: preventing and managing the global epidemic. Report of a WHO consultation. *World Health Organization Technical Report Series* 2000;894:253.
+
+17. Amato MC, Giordano C. Visceral Adiposity Index: An Indicator of Adipose Tissue Dysfunction. *International Journal of Endocrinology* 2014;730827.
+
+18. Rodacki M, Cobas RA, Zajdenverg L, Silva Júnior WS, Giacaglia L, Calliari LE, et al. Diagnóstico de Diabetes Mellitus. *Diretriz Oficial da Sociedade Brasileira de Diabetes* 2024. ISBN: 978-65-272-0704-7.
+
+19. Ridker PM. C-Reactive Protein and the Prediction of Cardiovascular Events Among Those at Intermediate Risk: Moving an Inflammatory Hypothesis Toward Consensus. *Journal of the American College of Cardiology* 2007;49:2129-2138.
+
+20. Geloneze B, Vasques AC, Stabe CF, Pareja JC, Rosado LE, Queiroz EC, et al. HOMA1-IR and HOMA2-IR Indexes in Identifying Insulin Resistance and Metabolic Syndrome: Brazilian Metabolic Syndrome Study (BRAMS). *Arquivos Brasileiros de Endocrinologia & Metabologia* 2009;53:281-287.
+
+21. Ulrich EL, Akutsu H, Doreleijers JF, Harano Y, Ioannidis YE, Lin J, et al. BioMagResBank. *Nucleic Acids Research* 2008;36:D402-D408.
+
+22. Wishart DS, Knox C, Guo AC, Eisner R, Young N, Gautam B, et al. HMDB: A Knowledgebase for the Human Metabolome. *Nucleic Acids Research* 2009;37:D603-D610.
+
+23. Cloarec O, Dumas ME, Craig A, Barton RH, Trygg J, Hudson J, et al. Statistical Total Correlation Spectroscopy: An Exploratory Approach for Latent Biomarker Identification from Metabolic 1H NMR Data Sets. *Analytical Chemistry* 2005;77:1282-1289.
+
+24. Pang Z, Lu Y, Zhou G, Hui F, Xu L, Viau C, Spigelman AF, MacDonald PE, Wishart DS, Li S, Xia J. MetaboAnalyst 6.0: towards a unified platform for metabolomics data processing, analysis and interpretation. *Nucleic Acids Research* 2024;52(W1):W398-W406.
+
+25. Szklarczyk D, Santos A, von Mering C, Jensen LJ, Bork P, Kuhn M, et al. STITCH 5: Augmenting Protein-Chemical Interaction Networks with Tissue and Affinity Data. *Nucleic Acids Research* 2016;44:D380-D384.
+
+26. Piñero J, Bravo À, Queralt-Rosinach N, Gutiérrez-Sacristán A, Deu-Pons J, Centeno E, et al. DisGeNET: A Comprehensive Platform Integrating Information on Human Disease-Associated Genes and Variants. *Nucleic Acids Research* 2017;45:D833-D839.
+
+27. Shannon P, Markiel A, Ozier O, Baliga NS, Wang JT, Ramage D, et al. Cytoscape: A Software Environment for Integrated Models of Biomolecular Interaction Networks. *Genome Research* 2003;13:2498-2504.
+
+28. Powell-Wiley TM, Poirier P, Burke LE, Després JP, Gordon-Larsen P, Lavie CJ, et al. Obesity and Cardiovascular Disease: A Scientific Statement From the American Heart Association. *Circulation* 2021;143:e984-e1010.
+
+29. Vekic J, Stefanovic A, Zeljkovic A. Obesity and Dyslipidemia: A Review of Current Evidence. *Current Obesity Reports* 2023;12:207-222.
+
+30. Bartoloni B, Mannelli M, Gamberi T, Fiaschi T. The Multiple Roles of Lactate in the Skeletal Muscle. *Cells* 2024;13:1177.
+
+31. Lin Y, Bai M, Wang S, Chen L, Li Z, Li C, et al. Lactate Is a Key Mediator That Links Obesity to Insulin Resistance via Modulating Cytokine Production from Adipose Tissue. *Diabetes* 2022;71:637-652.
+
+32. Tang Q, Tan P, Ma N, Ma X. Physiological Functions of Threonine in Animals: Beyond Nutrition Metabolism. *Nutrients* 2021;13:2592.
+
+33. Newgard CB, An J, Bain JR, Muehlbauer MJ, Stevens RD, Lien LF, et al. A Branched-Chain Amino Acid–Related Metabolic Signature That Differentiates Obese and Lean Humans and Contributes to Insulin Resistance. *Cell Metabolism* 2009;9:311-326.
+
+34. Vanweert F, Schrauwen P, Phielix E. Role of Branched-Chain Amino Acid Metabolism in the Pathogenesis of Obesity and Type 2 Diabetes-Related Metabolic Disturbances BCAA Metabolism in Type 2 Diabetes. *Nutrition & Diabetes* 2022;12:35.
+
+35. Lynch CJ, Adams SH. Branched-Chain Amino Acids in Metabolic Signalling and Insulin Resistance. *Nature Reviews Endocrinology* 2014;10:723-736.
+
+36. Neinast MD, Jang C, Hui S, Murashige DS, Chu Q, Morscher RJ, et al. Quantitative Analysis of the Whole-Body Metabolic Fate of Branched-Chain Amino Acids. *Cell Metabolism* 2019;30:1141-1156.e7.
+
+37. Yamakado M, Tanaka T, Nagao K, Imaizumi A, Komatsu M, Daimon T, et al. Plasma Amino Acid Profile Associated with Fatty Liver Disease and Co-Occurrence of Metabolic Risk Factors. *Scientific Reports* 2017;7:14485.
+
+38. Hoffer LJ, Forse RA. Protein Metabolic Effects of a Prolonged Fast and Hypocaloric Refeeding. *American Journal of Physiology* 1990;258:E832-E840.
+
+39. Franckhauser S, Elias I, Rotter Sopasakis V, Ferré T, Nagaev I, Andersson CX, et al. Overexpression of IL-6 Leads to Hyperinsulinaemia, Liver Inflammation and Reduced Body Weight in Mice. *Diabetologia* 2008;51:1306-1316.
+
+40. Dumas M-E, Barton RH, Toye A, Cloarec O, Blancher C, Rothwell A, et al. Metabolic Profiling Reveals a Contribution of Gut Microbiota to Fatty Liver Phenotype in Insulin-Resistant Mice. *Proceedings of the National Academy of Sciences of the United States of America* 2006;103:12511-12516.
