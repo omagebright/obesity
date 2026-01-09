@@ -1,0 +1,28 @@
+# Manuscript files - not for public repository
+manuscript*.docx
+manuscript*.md
+*_HIGHLIGHTED*.docx
+*_FOR_COLLABORATOR*.docx
+*_WITH_HIGHLIGHTS*.docx
+REVISION_CHANGES*.docx
+
+# Peer review (internal)
+PEER_REVIEW.md
+
+# Python helper scripts (internal use only)
+add_*.py
+create_*.py
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*~
+temp_*/
+
+# OS files
+.DS_Store
+Thumbs.db
