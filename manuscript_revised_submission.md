@@ -146,7 +146,7 @@ Metabolomic profiling revealed significant differences in metabolite levels betw
 
 *Abbreviation: FC, fold change. Up trend, relatively higher levels of metabolites present in the BMI >= 30 kg/m^2^ group; Down trend, relatively lower levels. p_adj, p-value adjusted for FDR using Benjamini-Hochberg method. Full list of 34 significant metabolites in Supplementary Table S3. Values are relative ASICS intensities.*
 
-<mark>Multivariate and pathway-level analyses corroborate a distinct metabolic signature in individuals with BMI >= 30 kg/m^2^. Univariate testing is summarized in the volcano plot (Fig 1a), which highlights 34 significantly altered metabolites with L-lysine showing the largest effect size (Cohen's d = 1.30). A three-dimensional PCA score plot (Fig 1b) shows partial separation between the obese (BMI >= 30 kg/m^2^) and non-obese (BMI < 30 kg/m^2^) groups, with the first three principal components explaining 73.4%, 13.6% and 8.6% of the total variance, respectively. Pathway enrichment and topology analysis (Fig 1c) pinpointed lysine degradation and tryptophan metabolism as the most significantly affected pathways, followed by phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and inositol phosphate metabolism.</mark>
+<mark>Multivariate and pathway-level analyses corroborate a distinct metabolic signature in individuals with BMI >= 30 kg/m^2^. Univariate testing is summarized in the volcano plot (Fig 1a), which highlights 34 significantly altered metabolites with L-lysine showing the largest effect size (Cohen's d = 1.30). A three-dimensional PCA score plot (Fig 1b) shows partial separation between the obese (BMI >= 30 kg/m^2^) and non-obese (BMI < 30 kg/m^2^) groups, with the first three principal components explaining 73.4%, 13.6% and 8.6% of the total variance, respectively. Correlation analysis revealed strong positive associations among branched-chain amino acids (leucine, isoleucine, valine) and among structurally related metabolites, consistent with shared metabolic pathways (Supplementary Fig S4). Pathway enrichment and topology analysis (Fig 1c) pinpointed lysine degradation and tryptophan metabolism as the most significantly affected pathways, followed by phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and inositol phosphate metabolism.</mark>
 
 <mark>
 
@@ -194,7 +194,7 @@ We evaluated nine machine learning algorithms for distinguishing individuals wit
 
 </mark>
 
-<mark>On the independent hold-out test set (n = 22), SVM achieved 63.6% accuracy (Fig 2b). However, the small test set size warrants cautious interpretation; bootstrap 95% confidence intervals were wide (SVM: 45.5–81.8%), reflecting inherent uncertainty. Cross-validation metrics should therefore guide primary interpretation of model performance. Learning curves confirmed appropriate model complexity for SVM and Random Forest, with minimal gaps between training and validation accuracy at full sample size (Supplementary Fig S1a).</mark>
+<mark>On the independent hold-out test set (n = 22), SVM achieved 63.6% accuracy (Fig 2b). However, the small test set size warrants cautious interpretation; bootstrap 95% confidence intervals were wide (SVM: 45.5–81.8%), reflecting inherent uncertainty. Cross-validation metrics should therefore guide primary interpretation of model performance. ROC curve analysis confirmed discriminative ability across all models, with Naive Bayes achieving the highest AUC (0.77 ± 0.18; Supplementary Fig S3). Learning curves confirmed appropriate model complexity for SVM and Random Forest, with minimal gaps between training and validation accuracy at full sample size (Supplementary Fig S1a).</mark>
 
 <mark>Feature importance analysis identified L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI ≥ 30 kg/m² group (Fig 3a). D-fucose showed the strongest negative association, consistent with its reduced levels in obesity. The six metabolites with the largest effect sizes are displayed with individual participant data points in Fig 3b.</mark>
 
@@ -345,9 +345,27 @@ S.C.V.C.L, C.O.L, D.M.L.M, K.C.M.S.E. investigation and performed clinical resea
 
 </mark>
 
+<mark>
+
 ### Supplementary Figure S2: Protein-Metabolite-Disease Network
 
-Protein-metabolite-disease interaction network showing functional relationships among significantly altered metabolites. Nodes represent metabolites, proteins, and diseases; edges indicate known functional or literature-based relationships from STITCH database (confidence >= 0.70).
+![Supplementary Figure S2](figures/FigureS2_Network.png)
+
+**Fig S2.** Protein-metabolite-disease interaction network showing functional relationships among significantly altered metabolites. Nodes represent metabolites (blue), proteins (green), and diseases (red); edges indicate known functional or literature-based relationships from the STITCH database (confidence ≥ 0.70). Solid lines represent metabolite-protein interactions; dashed lines represent metabolite-disease associations.
+
+### Supplementary Figure S3: ROC Curves
+
+![Supplementary Figure S3](figures/FigureS3_ROC.png)
+
+**Fig S3.** Receiver Operating Characteristic (ROC) curves for six machine learning classifiers. Mean ROC curves were computed from 5-fold cross-validation. Shaded regions represent ±1 standard deviation. All models demonstrate discriminative ability above the diagonal chance line. Naive Bayes achieved the highest mean AUC (0.77 ± 0.18), followed by Random Forest (0.76 ± 0.23).
+
+### Supplementary Figure S4: Metabolite Correlation Matrix
+
+![Supplementary Figure S4](figures/FigureS4_Correlation.png)
+
+**Fig S4.** Pearson correlation matrix of metabolites in the training set (n = 50). Red indicates positive correlations; blue indicates negative correlations. Strong positive correlations are observed among branched-chain amino acids (leucine, isoleucine, valine) and among related metabolic intermediates, consistent with shared metabolic pathways.
+
+</mark>
 
 ---
 
