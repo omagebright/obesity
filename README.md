@@ -174,4 +174,4 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 
 ## Acknowledgments
 
-This study was funded by the Coordination of Improvement of Higher Education Personnel (CAPES, Grant number 001). This work was supported by the National Council for Scientific and Technological Development (CNPq, Grant numbers: 431053/2016-2, 405837/2016-0, and 308079/2021-3). We also thank INCTBio-Lauro Kubota and Sao Paulo Research Foundation (FAPESP), Grant numbers: #2023/02691-2, #2022/11207-4, #2018/24069-3, #2016/20054-6, and #2014/50867-3. We thank the participants of the BRAZUCA study.
+This study was funded by the Coordination of Improvement of Higher Education Personnel (CAPES, Grant number 001). This work was supported by the National Council for Scientific and Technological Development (CNPq, Grant numbers: 431053/2016-2, 405837/2016-0, and 308079/2021-3). We also thank INCTBio-Lauro Kubota and Sao Paulo Research Foundation (FAPESP), Grant numbers: #2025/23708-6, #2023/02691-2, #2022/11207-4, #2018/24069-3, #2016/20054-6, and #2014/50867-3. We thank the participants of the BRAZUCA study.
