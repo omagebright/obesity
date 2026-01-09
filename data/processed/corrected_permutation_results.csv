@@ -1,4 +1,10 @@
-Model,CV_Accuracy,P_value
-Logistic Regression,0.6514285714285715,0.01998001998001998
-Random Forest,0.7066666666666667,0.002997002997002997
-XGBoost,0.6952380952380952,0.002997002997002997
+Model,CV_Accuracy,P_value,Significant
+SVM,0.7076,0.002,True
+Random Forest,0.7067,0.003,True
+XGBoost,0.6952,0.002,True
+Naive Bayes,0.6943,0.002,True
+Gradient Boosting,0.6638,0.015,True
+Logistic Regression,0.6514,0.02,True
+KNN,0.6505,0.019,True
+Decision Tree,0.5962,0.0979,False
+Neural Network,0.5943,0.1129,False

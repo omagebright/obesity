@@ -158,7 +158,7 @@ Multivariate and pathway-level analyses corroborate a distinct metabolic signatu
 
 ### Protein-Metabolite-Disease Network
 
-A protein-metabolite-disease interaction network was constructed to reveal the potential functional relationships among the significantly altered metabolites. Interactions between the metabolites and proteins were obtained from the STITCH database with a confidence threshold >= 0.70. Specifically, the five key metabolic biomarkers (leucine, lysine, phenylalanine, lactate, and formate) were mapped to 19 distinct proteins including: alanine aminotransferase (ALT), aspartate aminotransferase (AST), branched-chain aminotransferase 1 (BCAT1), branched-chain alpha-keto acid dehydrogenase complex (BCKDHA), phenylalanine hydroxylase (PAH), tyrosine aminotransferase (TAT), lactate dehydrogenase A (LDHA), lactate dehydrogenase B (LDHB), formate dehydrogenase (FDH), leucyl-tRNA synthetase (LARS), lysyl-tRNA synthetase (KARS), and others involved in amino acid metabolism, energy production, and one-carbon metabolism pathways (Fig 2).
+A protein-metabolite-disease interaction network was constructed to reveal the potential functional relationships among the significantly altered metabolites. Interactions between the metabolites and proteins were obtained from the STITCH database with a confidence threshold >= 0.70. Representative metabolites from the significant panel (lysine, leucine, alanine, glutamic acid, and isoleucine) were mapped to distinct proteins including: alanine aminotransferase (ALT), aspartate aminotransferase (AST), branched-chain aminotransferase 1 (BCAT1), branched-chain alpha-keto acid dehydrogenase complex (BCKDHA), tyrosine aminotransferase (TAT), leucyl-tRNA synthetase (LARS), lysyl-tRNA synthetase (KARS), glutamate dehydrogenase (GLUD1), and others involved in amino acid metabolism and energy production pathways (Fig 2).
 
 ### Machine Learning Classification
 
@@ -172,21 +172,21 @@ Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the hi
 
 | Model | CV Accuracy | CV F1-Score | CV AUC | Permutation p |
 |-------|-------------|-------------|--------|---------------|
-| SVM | 0.724 +/- 0.091 | 0.746 +/- 0.078 | 0.735 +/- 0.136 | < 0.01 |
+| SVM | 0.724 +/- 0.091 | 0.746 +/- 0.078 | 0.735 +/- 0.136 | 0.002 |
 | Random Forest | 0.706 +/- 0.107 | 0.711 +/- 0.102 | 0.750 +/- 0.128 | 0.003 |
-| Naive Bayes | 0.689 +/- 0.106 | 0.656 +/- 0.133 | 0.796 +/- 0.112 | < 0.01 |
-| Gradient Boosting | 0.678 +/- 0.124 | 0.688 +/- 0.123 | 0.729 +/- 0.126 | < 0.01 |
-| KNN | 0.663 +/- 0.117 | 0.661 +/- 0.126 | 0.720 +/- 0.130 | 0.015 |
-| XGBoost | 0.659 +/- 0.118 | 0.656 +/- 0.123 | 0.725 +/- 0.119 | 0.003 |
+| Naive Bayes | 0.689 +/- 0.106 | 0.656 +/- 0.133 | 0.796 +/- 0.112 | 0.002 |
+| Gradient Boosting | 0.678 +/- 0.124 | 0.688 +/- 0.123 | 0.729 +/- 0.126 | 0.015 |
+| KNN | 0.663 +/- 0.117 | 0.661 +/- 0.126 | 0.720 +/- 0.130 | 0.019 |
+| XGBoost | 0.659 +/- 0.118 | 0.656 +/- 0.123 | 0.725 +/- 0.119 | 0.002 |
 | Logistic Regression | 0.646 +/- 0.110 | 0.642 +/- 0.124 | 0.716 +/- 0.122 | 0.020 |
-| Decision Tree | 0.602 +/- 0.107 | 0.592 +/- 0.122 | 0.600 +/- 0.107 | 0.035 |
-| Neural Network | 0.599 +/- 0.131 | 0.599 +/- 0.136 | 0.682 +/- 0.143 | 0.028 |
+| Decision Tree | 0.602 +/- 0.107 | 0.592 +/- 0.122 | 0.600 +/- 0.107 | 0.098^ns^ |
+| Neural Network | 0.599 +/- 0.131 | 0.599 +/- 0.136 | 0.682 +/- 0.143 | 0.113^ns^ |
 
-*Values represent mean +/- standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations.*
+*Values represent mean +/- standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations. ^ns^Not significant (p >= 0.05).*
 
 **Statistical significance**
 
-Permutation testing (1,000 permutations) confirmed that all models significantly exceeded chance-level classification (50% for balanced classes). Random Forest achieved p = 0.003, XGBoost p = 0.003, and logistic regression p = 0.020, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status.
+Permutation testing (1,000 permutations) confirmed that seven of nine models significantly exceeded chance-level classification (50% for balanced classes). SVM achieved p = 0.002, Random Forest p = 0.003, XGBoost p = 0.002, and Naive Bayes p = 0.002, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status. Decision Tree (p = 0.098) and Neural Network (p = 0.113) did not reach statistical significance, likely due to overfitting tendencies with small sample sizes.
 
 **Hold-out test set performance (SECONDARY METRIC)**
 
@@ -214,11 +214,11 @@ In contrast, D-fucose and myo-inositol were significantly diminished in the obes
 
 Pathway enrichment analysis highlighted phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and glycolysis/gluconeogenesis among the most significantly altered routes in individuals with BMI >= 30 kg/m^2^. These cascades are integral to energy production, redox balance, and amino-acid interconversion. Evidence suggests that obesity can reprogram these primary pathways, as stated earlier, contributing to insulin resistance, inflammation, and ectopic lipid deposition [6, 33].
 
-Our protein-metabolite-disease interaction network (Fig 2) showed that five significantly altered metabolites map onto 19 obesity-related proteins, underscoring the functional interconnectedness of metabolic reconfigurations. We noted potential links between these disrupted metabolic profiles and various chronic diseases by incorporating annotations from STITCH, the Human Metabolome Database, and DisGeNET. This aligns with emerging models of obesity that position it not solely as a harbinger of conditions such as type 2 diabetes or cardiovascular disease but as an active contributor to organ dysfunction driven by inflammatory, endocrine, and hemodynamic stressors [40].
+Our protein-metabolite-disease interaction network (Fig 2) showed that representative amino acid metabolites from our significant panel map onto obesity-related proteins, underscoring the functional interconnectedness of metabolic reconfigurations. We noted potential links between these disrupted metabolic profiles and various chronic diseases by incorporating annotations from STITCH, the Human Metabolome Database, and DisGeNET. This aligns with emerging models of obesity that position it not solely as a harbinger of conditions such as type 2 diabetes or cardiovascular disease but as an active contributor to organ dysfunction driven by inflammatory, endocrine, and hemodynamic stressors [40].
 
 ### Sample Size Considerations
 
-Our sample size (n=72, 36 per group) warrants discussion. While larger cohorts would increase statistical power, our study demonstrates adequate power for detecting the observed effect sizes. L-lysine, showing the largest effect (Cohen's d = 1.30), achieved >95% power, while metabolites with smaller effects (d ~ 0.8) achieved approximately 80% power. The repeated cross-validation approach, which utilizes all samples for both training and validation across multiple iterations, provides more robust performance estimates than a single train-test split. Importantly, permutation testing confirmed that our classification results significantly exceed chance (all models p < 0.05), indicating genuine discriminatory signal despite the modest sample size. These findings should be interpreted as preliminary evidence requiring validation in larger, independent cohorts.
+Our sample size (n=72, 36 per group) warrants discussion. While larger cohorts would increase statistical power, our study demonstrates adequate power for detecting the observed effect sizes. L-lysine, showing the largest effect (Cohen's d = 1.30), achieved >95% power, while metabolites with smaller effects (d ~ 0.8) achieved approximately 80% power. The repeated cross-validation approach, which utilizes all samples for both training and validation across multiple iterations, provides more robust performance estimates than a single train-test split. Importantly, permutation testing confirmed that our classification results significantly exceed chance for most models (seven of nine models p < 0.05, with the best-performing SVM at p = 0.002), indicating genuine discriminatory signal despite the modest sample size. These findings should be interpreted as preliminary evidence requiring validation in larger, independent cohorts.
 
 ### Model Selection
 
@@ -228,17 +228,17 @@ Notably, test set performance showed high variability across models (confidence 
 
 ### Population-Specific Validation
 
-Our findings validate several metabolite associations previously reported in European and North American populations, including altered branched-chain amino acid profiles and elevated lactate in obesity. Importantly, this study extends these observations to a Brazilian cohort with distinct dietary patterns and genetic backgrounds. The replication of core metabolic signatures across populations strengthens confidence in these biomarkers' generalizability, while population-specific validation remains essential for clinical translation in diverse settings.
+Our findings validate several metabolite associations previously reported in European and North American populations, including altered branched-chain amino acid profiles and dysregulated tryptophan-kynurenine pathway metabolites in obesity. Importantly, this study extends these observations to a Brazilian cohort with distinct dietary patterns and genetic backgrounds. The replication of core metabolic signatures across populations strengthens confidence in these biomarkers' generalizability, while population-specific validation remains essential for clinical translation in diverse settings.
 
 ### Clinical Implications
 
-Beyond classification, our machine learning results have clinical translational value, hinting that refined biomarker panels, encompassing amino acids, short-chain organic acids, and possibly lipid intermediates, might surpass BMI alone in detecting early organ stress. The literature increasingly shows that "clinical obesity" should be differentiated from mere increases in body weight or BMI thresholds, focusing instead on organ-level dysfunction [37, 38]. Tracking signature metabolites (*e.g.*, lactate, leucine, formate) could thus facilitate earlier interventions or more precise therapeutic efficacy monitoring.
+Beyond classification, our machine learning results have clinical translational value, hinting that refined biomarker panels, encompassing amino acids, short-chain organic acids, and possibly lipid intermediates, might surpass BMI alone in detecting early organ stress. The literature increasingly shows that "clinical obesity" should be differentiated from mere increases in body weight or BMI thresholds, focusing instead on organ-level dysfunction [37, 38]. Tracking signature metabolites (*e.g.*, lysine, quinolinic acid, kynurenic acid) could thus facilitate earlier interventions or more precise therapeutic efficacy monitoring.
 
 These findings align with the evolving concept of obesity, moving beyond BMI to include excess adiposity and validated biomarkers of tissue and organ dysfunction for defining "clinical obesity" [40]. Our results demonstrate that specific metabolite changes and pathway disruptions may occur before or alongside clinical symptoms, highlighting the importance of targeted metabolite profiling-especially amino acid and short-chain metabolite panels-for enhanced risk stratification. Furthermore, this approach can guide personalized interventions, such as GLP-1 receptor agonists and lifestyle programs, as well as precision nutrition strategies tailored to individual metabolic phenotypes.
 
 ### Limitations
 
-Despite the strengths of our integrative approach, several limitations should be noted. The cross-sectional design limits causal inference, as metabolic changes may be a cause or consequence of obesity. Prospective studies are needed to clarify temporal relationships and predictive metabolites. Semi-quantitative metabolomics provides broad coverage but has quantification limitations; targeted or absolute quantification of key metabolites is recommended for future validation. Additionally, the sample size and demographic characteristics may restrict the generalizability of findings, highlighting the need for larger, multicenter studies across diverse populations. Future studies could determine the thresholds of metabolite dysregulation that most accurately correlate with the onset of organ impairments. Mechanistic and interventional research, including Mendelian randomization, may further clarify whether modifying leucine, lysine, or formate levels influences obesity-related phenotypes or the risk of comorbidities. Finally, integrating multi-omics data (epigenetics, proteomics, microbiomics) with established anthropometric and clinical assessments is likely to refine strategies for precision obesity management, enhancing both early detection of organ dysfunction and targeted therapeutic interventions.
+Despite the strengths of our integrative approach, several limitations should be noted. The cross-sectional design limits causal inference, as metabolic changes may be a cause or consequence of obesity. Prospective studies are needed to clarify temporal relationships and predictive metabolites. Semi-quantitative metabolomics provides broad coverage but has quantification limitations; targeted or absolute quantification of key metabolites is recommended for future validation. Additionally, the sample size and demographic characteristics may restrict the generalizability of findings, highlighting the need for larger, multicenter studies across diverse populations. Future studies could determine the thresholds of metabolite dysregulation that most accurately correlate with the onset of organ impairments. Mechanistic and interventional research, including Mendelian randomization, may further clarify whether modifying lysine, kynurenic acid, or quinolinic acid levels influences obesity-related phenotypes or the risk of comorbidities. Finally, integrating multi-omics data (epigenetics, proteomics, microbiomics) with established anthropometric and clinical assessments is likely to refine strategies for precision obesity management, enhancing both early detection of organ dysfunction and targeted therapeutic interventions.
 
 ---
 
