@@ -81,15 +81,7 @@ Nine classification algorithms were evaluated: logistic regression, support vect
 
 ### Model Validation and Robustness Assessment
 
-To address potential overfitting concerns inherent to small sample sizes, we implemented a comprehensive validation strategy:
-
-(1) *Repeated stratified cross-validation*: The primary performance metric was derived from 10 repetitions of 5-fold stratified cross-validation on the full dataset (n=72), yielding 50 independent performance estimates per model. This approach provides robust mean estimates and standard deviations that account for sampling variability.
-
-(2) *Permutation testing*: To assess whether model performance exceeded chance levels, we performed permutation testing with 1,000 iterations. Class labels were randomly shuffled, models were retrained, and the resulting null distribution was compared against actual performance. A p-value < 0.05 indicates performance significantly better than random classification.
-
-(3) *Bootstrap confidence intervals*: For the held-out test set, we computed 95% confidence intervals using 1,000 bootstrap resamples with replacement, providing uncertainty estimates for all reported metrics.
-
-(4) *Learning curves*: To diagnose overfitting, we plotted training and validation accuracy as a function of training set size (20%, 40%, 60%, 80%, 100%).
+<mark>To address potential overfitting concerns inherent to small sample sizes, we implemented a comprehensive validation strategy. First, repeated stratified cross-validation served as the primary performance metric, derived from 10 repetitions of 5-fold stratified cross-validation on the full dataset (n=72), yielding 50 independent performance estimates per model. This approach provides robust mean estimates and standard deviations that account for sampling variability. Second, permutation testing with 1,000 iterations assessed whether model performance exceeded chance levels by randomly shuffling class labels, retraining models, and comparing the resulting null distribution against actual performance; a p-value < 0.05 indicates performance significantly better than random classification. Third, bootstrap confidence intervals for the held-out test set were computed using 1,000 bootstrap resamples with replacement, providing uncertainty estimates for all reported metrics. Fourth, learning curves plotting training and validation accuracy as a function of training set size (20%, 40%, 60%, 80%, 100%) were used to diagnose overfitting.</mark>
 
 The final model was selected based on repeated cross-validation performance. We report accuracy, precision, recall, F1-score, Matthews correlation coefficient (MCC), and area under the receiver operating characteristic curve (AUC-ROC). All code and data are publicly available at https://github.com/omagebright/obesity.
 
@@ -154,7 +146,17 @@ Metabolomic profiling revealed significant differences in metabolite levels betw
 
 *Abbreviation: FC, fold change. Up trend, relatively higher levels of metabolites present in the BMI >= 30 kg/m^2^ group; Down trend, relatively lower levels. p_adj, p-value adjusted for FDR using Benjamini-Hochberg method. Full list of 34 significant metabolites in Supplementary Table S3. Values are relative ASICS intensities.*
 
-Multivariate and pathway-level analyses corroborate a distinct metabolic signature in individuals with BMI >= 30 kg/m^2^. Univariate testing is summarized in the volcano plot (Fig 1a), which highlights 34 significantly altered metabolites with L-lysine showing the largest effect size (Cohen's d = 1.30). A three-dimensional PCA score plot (Fig 1b) shows partial separation between the obese (BMI >= 30 kg/m^2^) and non-obese (BMI < 30 kg/m^2^) groups, with the first three principal components explaining 73.4%, 13.6% and 8.6% of the total variance, respectively. Pathway enrichment and topology analysis (Fig 1c) pinpointed lysine degradation and tryptophan metabolism as the most significantly affected pathways, followed by phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and inositol phosphate metabolism.
+<mark>Multivariate and pathway-level analyses corroborate a distinct metabolic signature in individuals with BMI >= 30 kg/m^2^. Univariate testing is summarized in the volcano plot (Fig 1a), which highlights 34 significantly altered metabolites with L-lysine showing the largest effect size (Cohen's d = 1.30). A three-dimensional PCA score plot (Fig 1b) shows partial separation between the obese (BMI >= 30 kg/m^2^) and non-obese (BMI < 30 kg/m^2^) groups, with the first three principal components explaining 73.4%, 13.6% and 8.6% of the total variance, respectively. Pathway enrichment and topology analysis (Fig 1c) pinpointed lysine degradation and tryptophan metabolism as the most significantly affected pathways, followed by phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and inositol phosphate metabolism.</mark>
+
+<mark>
+
+**Figure 1. Differential Metabolite Analysis**
+
+![Figure 1](figures/Figure1.png)
+
+**Fig 1.** Differential metabolite analysis between BMI >= 30 kg/m^2^ and BMI < 30 kg/m^2^ groups. **(a)** Volcano plot showing 34 significantly altered metabolites (FDR < 0.05). Red points indicate metabolites elevated in obesity; blue points indicate metabolites reduced in obesity. L-Lysine shows the largest effect size (Cohen's d = 1.30). **(b)** Principal Component Analysis (3D) demonstrating partial separation between BMI groups. PC1, PC2, and PC3 explain 73.4%, 13.6%, and 8.6% of the total variance, respectively. **(c)** Pathway enrichment analysis highlighting lysine degradation and tryptophan metabolism as the most significantly affected pathways.
+
+</mark>
 
 ### Protein-Metabolite-Disease Network
 
@@ -166,7 +168,7 @@ We evaluated nine machine learning algorithms for distinguishing individuals wit
 
 **Cross-validation performance (PRIMARY METRIC)**
 
-Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the highest mean accuracy (Table 3, Fig 2a). SVM attained 72.4% +/- 9.1% accuracy (F1: 0.746 +/- 0.078; AUC: 0.735 +/- 0.136), followed by random forest at 70.6% +/- 10.7% accuracy. The moderate standard deviations reflect expected variability given the sample size (n=72) and should be interpreted as realistic performance bounds.
+<mark>Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the highest mean accuracy (Table 3, Fig 2a). SVM attained 72.4% +/- 9.1% accuracy (F1: 0.746 +/- 0.078; AUC: 0.735 +/- 0.136), followed by random forest at 70.6% +/- 10.7% accuracy. The moderate standard deviations reflect expected variability given the sample size (n=72) and should be interpreted as realistic performance bounds.</mark>
 
 **Table 3.** Machine learning model performance for obesity classification
 
@@ -184,21 +186,41 @@ Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the hi
 
 *Values represent mean +/- standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations. ^ns^Not significant (p >= 0.05).*
 
+<mark>
+
+**Figure 2. Machine Learning Model Performance**
+
+![Figure 2](figures/Figure2.png)
+
+**Fig 2.** Machine learning model performance for obesity classification. **(a)** Cross-validation performance comparison across six classifiers. SVM achieved the highest accuracy (72.4% +/- 9.1%). Error bars represent standard deviation across 50 CV iterations. **(b)** Confusion matrix for SVM on the hold-out test set (n=22). **(c)** Permutation test results confirming all models significantly exceed chance performance (p < 0.05).
+
+</mark>
+
 **Statistical significance**
 
-Permutation testing (1,000 permutations) confirmed that seven of nine models significantly exceeded chance-level classification (50% for balanced classes; Fig 2c). SVM achieved p = 0.002, Random Forest p = 0.003, XGBoost p = 0.002, and Naive Bayes p = 0.002, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status. Decision Tree (p = 0.098) and Neural Network (p = 0.113) did not reach statistical significance, likely due to overfitting tendencies with small sample sizes.
+<mark>Permutation testing with 1,000 permutations confirmed that seven of nine models significantly exceeded chance-level classification of 50% for balanced classes (Fig 2c). SVM achieved p = 0.002, Random Forest p = 0.003, XGBoost p = 0.002, and Naive Bayes p = 0.002, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status. Decision Tree (p = 0.098) and Neural Network (p = 0.113) did not reach statistical significance, likely due to overfitting tendencies with small sample sizes.</mark>
 
 **Hold-out test set performance (SECONDARY METRIC)**
 
-Due to the small test set size (n=22), test set performance should be interpreted with caution. XGBoost achieved the highest test accuracy: 68.3% (95% CI: 50.0-86.4%), F1-score 0.656 (CI: 40.0-87.0%), AUC 0.738 (CI: 50.8-93.2%). SVM achieved 63.4% (95% CI: 45.5-81.8%; Fig 2b). The wide bootstrap confidence intervals reflect inherent uncertainty with small test sets, and cross-validation results should be used for primary interpretation.
+<mark>Due to the small test set size (n=22), test set performance should be interpreted with caution. XGBoost achieved the highest test accuracy of 68.3% (95% CI: 50.0-86.4%), with F1-score of 0.656 (CI: 40.0-87.0%) and AUC of 0.738 (CI: 50.8-93.2%). SVM achieved 63.4% (95% CI: 45.5-81.8%; Fig 2b). The wide bootstrap confidence intervals reflect inherent uncertainty with small test sets, and cross-validation results should be used for primary interpretation.</mark>
 
 **Learning curve analysis**
 
-Learning curves (Supplementary Fig S1a) demonstrated converging training and validation accuracy for SVM and random forest, indicating appropriate model complexity without severe overfitting. The gap between training and validation curves was minimal at full sample size. Permutation test distributions for the top three models are shown in Supplementary Fig S1b.
+<mark>Learning curves (Supplementary Fig S1a) demonstrated converging training and validation accuracy for SVM and random forest, indicating appropriate model complexity without severe overfitting. The gap between training and validation curves was minimal at full sample size. Permutation test distributions for the top three models are shown in Supplementary Fig S1b.</mark>
 
 **Feature importance**
 
-SVM feature importance analysis revealed L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI >= 30 kg/m^2^ group (Fig 3a). D-fucose showed the strongest negative association, consistent with its reduced levels in the obesity group. Box plots with individual data points for the metabolites with the largest effect sizes are shown in Fig 3b.
+<mark>SVM feature importance analysis revealed L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI >= 30 kg/m^2^ group (Fig 3a). D-fucose showed the strongest negative association, consistent with its reduced levels in the obesity group. Box plots with individual data points for the metabolites with the largest effect sizes are shown in Fig 3b.</mark>
+
+<mark>
+
+**Figure 3. Metabolite Effect Sizes**
+
+![Figure 3](figures/Figure3.png)
+
+**Fig 3.** Metabolite effect sizes and distributions. **(a)** Cohen's d effect sizes for the top 15 discriminatory metabolites. Dashed lines indicate large effect threshold (|d| = 0.8). **(b)** Box plots with individual data points for the six metabolites with largest effect sizes. Asterisks indicate significance: * p < 0.05, ** p < 0.01.
+
+</mark>
 
 ---
 
@@ -214,7 +236,7 @@ In contrast, D-fucose and myo-inositol were significantly diminished in the obes
 
 Pathway enrichment analysis highlighted phenylalanine, tyrosine, and tryptophan biosynthesis, pyruvate metabolism, and glycolysis/gluconeogenesis among the most significantly altered routes in individuals with BMI >= 30 kg/m^2^. These cascades are integral to energy production, redox balance, and amino-acid interconversion. Evidence suggests that obesity can reprogram these primary pathways, as stated earlier, contributing to insulin resistance, inflammation, and ectopic lipid deposition [6, 33].
 
-Our protein-metabolite-disease interaction network (Fig 2) showed that representative amino acid metabolites from our significant panel map onto obesity-related proteins, underscoring the functional interconnectedness of metabolic reconfigurations. We noted potential links between these disrupted metabolic profiles and various chronic diseases by incorporating annotations from STITCH, the Human Metabolome Database, and DisGeNET. This aligns with emerging models of obesity that position it not solely as a harbinger of conditions such as type 2 diabetes or cardiovascular disease but as an active contributor to organ dysfunction driven by inflammatory, endocrine, and hemodynamic stressors [40].
+<mark>Our protein-metabolite-disease interaction network (Supplementary Fig S2) showed that representative amino acid metabolites from our significant panel map onto obesity-related proteins, underscoring the functional interconnectedness of metabolic reconfigurations.</mark> We noted potential links between these disrupted metabolic profiles and various chronic diseases by incorporating annotations from STITCH, the Human Metabolome Database, and DisGeNET. This aligns with emerging models of obesity that position it not solely as a harbinger of conditions such as type 2 diabetes or cardiovascular disease but as an active contributor to organ dysfunction driven by inflammatory, endocrine, and hemodynamic stressors [40].
 
 ### Sample Size Considerations
 
@@ -256,7 +278,7 @@ All data and code necessary to reproduce the analyses are publicly available at 
 
 ## Funding
 
-This study was funded in part by the Coordination of Improvement of Higher Education Personnel (Coordenacao de Aperfeicoamento de Pessoal do Nivel Superior-CAPES, Grant number 001). This work was supported by the National Council for Scientific and Technological Development (Conselho Nacional de Desenvolvimento Cientifico e Tecnologico-CNPq, Grant numbers: 431053/2016-2, 405837/2016-0, and 308079/2021-3). We also thank INCTBio-Lauro Kubota and Sao Paulo Research Foundation (Fundacao de Amparo a Pesquisa do Estado de Sao Paulo-FAPESP), Grant numbers: #2025/23708-6, #2023/02691-2, #2022/11207-4, #2018/24069-3, #2016/20054-6, and #2014/50867-3.
+<mark>This study was funded in part by the Coordination of Improvement of Higher Education Personnel (Coordenacao de Aperfeicoamento de Pessoal do Nivel Superior-CAPES, Grant number 001). This work was supported by the National Council for Scientific and Technological Development (Conselho Nacional de Desenvolvimento Cientifico e Tecnologico-CNPq, Grant numbers: 431053/2016-2, 405837/2016-0, and 308079/2021-3). We also thank INCTBio-Lauro Kubota and Sao Paulo Research Foundation (Fundacao de Amparo a Pesquisa do Estado de Sao Paulo-FAPESP), Grant numbers: #2025/23708-6, #2023/02691-2, #2022/11207-4, #2018/24069-3, #2016/20054-6, and #2014/50867-3.</mark>
 
 ## Conflicts of Interest
 
@@ -327,13 +349,19 @@ S.C.V.C.L, C.O.L, D.M.L.M, K.C.M.S.E. investigation and performed clinical resea
 
 *Values represent relative ASICS intensities from training set only (n=50). p_adj, p-value adjusted for FDR using Benjamini-Hochberg method. Positive log2FC indicates higher levels in BMI >= 30 group.*
 
+<mark>
+
 ### Supplementary Figure S1: Model Validation
 
-Caption: **a)** Learning curves for six classification models showing training and validation accuracy as a function of training set size. Shaded regions indicate +/-1 standard deviation across cross-validation folds. SVM shows the best generalization with minimal overfitting. **b)** Permutation test distributions for top three models, demonstrating actual model performance (red line) significantly exceeds the null distribution.
+![Supplementary Figure S1](figures/FigureS1_Validation.png)
+
+**Fig S1.** Model validation analysis. **(a)** Learning curves for six classification models showing training and validation accuracy as a function of training set size. Shaded regions indicate +/-1 standard deviation across cross-validation folds. SVM shows the best generalization with minimal overfitting. **(b)** Permutation test distributions for top three models, demonstrating actual model performance (red line) significantly exceeds the null distribution.
+
+</mark>
 
 ### Supplementary Figure S2: Protein-Metabolite-Disease Network
 
-Caption: Protein-metabolite-disease interaction network showing functional relationships among significantly altered metabolites. Nodes represent metabolites, proteins, and diseases; edges indicate known functional or literature-based relationships from STITCH database (confidence >= 0.70).
+Protein-metabolite-disease interaction network showing functional relationships among significantly altered metabolites. Nodes represent metabolites, proteins, and diseases; edges indicate known functional or literature-based relationships from STITCH database (confidence >= 0.70).
 
 ---
 
