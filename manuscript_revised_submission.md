@@ -164,27 +164,25 @@ A protein-metabolite-disease interaction network was constructed to reveal the p
 
 ### Machine Learning Classification
 
-We evaluated nine machine learning algorithms for distinguishing individuals with BMI >= 30 kg/m^2^ from those with BMI < 30 kg/m^2^ using the panel of 34 differentially abundant metabolites identified from the training set.
+We evaluated nine machine learning algorithms for distinguishing individuals with BMI >= 30 kg/m^2^ from those with BMI < 30 kg/m^2^ using the panel of 34 differentially abundant metabolites identified from the training set. <mark>Repeated 10×5-fold stratified cross-validation served as the primary performance metric, with permutation testing to assess statistical significance.</mark>
 
-**Cross-validation performance (PRIMARY METRIC)**
-
-<mark>Repeated 10x5-fold stratified cross-validation revealed that SVM achieved the highest mean accuracy (Table 3, Fig 2a). SVM attained 72.4% +/- 9.1% accuracy (F1: 0.746 +/- 0.078; AUC: 0.735 +/- 0.136), followed by random forest at 70.6% +/- 10.7% accuracy. The moderate standard deviations reflect expected variability given the sample size (n=72) and should be interpreted as realistic performance bounds.</mark>
+<mark>SVM achieved the highest cross-validation accuracy of 72.4% ± 9.1% (F1: 0.746 ± 0.078; AUC: 0.735 ± 0.136), followed by Random Forest at 70.6% ± 10.7% (Table 3, Fig 2a). The moderate standard deviations reflect expected variability given the sample size and represent realistic performance bounds rather than model instability. Permutation testing with 1,000 iterations confirmed that seven of nine models significantly exceeded chance-level classification (p < 0.05), with SVM, Random Forest, XGBoost, and Naive Bayes all achieving p ≤ 0.003 (Fig 2c). Decision Tree and Neural Network did not reach significance (p = 0.098 and p = 0.113, respectively), likely reflecting overfitting tendencies with limited training data.</mark>
 
 **Table 3.** Machine learning model performance for obesity classification
 
 | Model | CV Accuracy | CV F1-Score | CV AUC | Permutation p |
 |-------|-------------|-------------|--------|---------------|
-| SVM | 0.724 +/- 0.091 | 0.746 +/- 0.078 | 0.735 +/- 0.136 | 0.002 |
-| Random Forest | 0.706 +/- 0.107 | 0.711 +/- 0.102 | 0.750 +/- 0.128 | 0.003 |
-| Naive Bayes | 0.689 +/- 0.106 | 0.656 +/- 0.133 | 0.796 +/- 0.112 | 0.002 |
-| Gradient Boosting | 0.678 +/- 0.124 | 0.688 +/- 0.123 | 0.729 +/- 0.126 | 0.015 |
-| KNN | 0.663 +/- 0.117 | 0.661 +/- 0.126 | 0.720 +/- 0.130 | 0.019 |
-| XGBoost | 0.659 +/- 0.118 | 0.656 +/- 0.123 | 0.725 +/- 0.119 | 0.002 |
-| Logistic Regression | 0.646 +/- 0.110 | 0.642 +/- 0.124 | 0.716 +/- 0.122 | 0.020 |
-| Decision Tree | 0.602 +/- 0.107 | 0.592 +/- 0.122 | 0.600 +/- 0.107 | 0.098^ns^ |
-| Neural Network | 0.599 +/- 0.131 | 0.599 +/- 0.136 | 0.682 +/- 0.143 | 0.113^ns^ |
+| SVM | 0.724 ± 0.091 | 0.746 ± 0.078 | 0.735 ± 0.136 | 0.002 |
+| Random Forest | 0.706 ± 0.107 | 0.711 ± 0.102 | 0.750 ± 0.128 | 0.003 |
+| Naive Bayes | 0.689 ± 0.106 | 0.656 ± 0.133 | 0.796 ± 0.112 | 0.002 |
+| Gradient Boosting | 0.678 ± 0.124 | 0.688 ± 0.123 | 0.729 ± 0.126 | 0.015 |
+| KNN | 0.663 ± 0.117 | 0.661 ± 0.126 | 0.720 ± 0.130 | 0.019 |
+| XGBoost | 0.659 ± 0.118 | 0.656 ± 0.123 | 0.725 ± 0.119 | 0.002 |
+| Logistic Regression | 0.646 ± 0.110 | 0.642 ± 0.124 | 0.716 ± 0.122 | 0.020 |
+| Decision Tree | 0.602 ± 0.107 | 0.592 ± 0.122 | 0.600 ± 0.107 | 0.098^ns^ |
+| Neural Network | 0.599 ± 0.131 | 0.599 ± 0.136 | 0.682 ± 0.143 | 0.113^ns^ |
 
-*Values represent mean +/- standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations. ^ns^Not significant (p >= 0.05).*
+*Values represent mean ± standard deviation from 10 repetitions of 5-fold stratified cross-validation. Permutation p-values derived from 1,000 label permutations. ^ns^Not significant (p ≥ 0.05).*
 
 <mark>
 
@@ -192,25 +190,13 @@ We evaluated nine machine learning algorithms for distinguishing individuals wit
 
 ![Figure 2](figures/Figure2.png)
 
-**Fig 2.** Machine learning model performance for obesity classification. **(a)** Cross-validation performance comparison across six classifiers. SVM achieved the highest accuracy (72.4% +/- 9.1%). Error bars represent standard deviation across 50 CV iterations. **(b)** Confusion matrix for SVM on the hold-out test set (n=22). **(c)** Permutation test results confirming all models significantly exceed chance performance (p < 0.05).
+**Fig 2.** Machine learning classification of obesity status using 34 differentially abundant metabolites. **(a)** Cross-validation performance comparison for the six top-performing classifiers, showing accuracy (blue), F1-score (green), and AUC (red). Error bars represent standard deviation across 50 cross-validation iterations. SVM achieved the highest accuracy (72.4% ± 9.1%). **(b)** Confusion matrix for SVM on the hold-out test set (n = 22), achieving 63.6% accuracy. **(c)** Permutation test results for seven models that exceeded chance performance (p < 0.05); Decision Tree and Neural Network were excluded as they did not reach statistical significance.
 
 </mark>
 
-**Statistical significance**
+<mark>On the independent hold-out test set (n = 22), SVM achieved 63.6% accuracy (Fig 2b). However, the small test set size warrants cautious interpretation; bootstrap 95% confidence intervals were wide (SVM: 45.5–81.8%), reflecting inherent uncertainty. Cross-validation metrics should therefore guide primary interpretation of model performance. Learning curves confirmed appropriate model complexity for SVM and Random Forest, with minimal gaps between training and validation accuracy at full sample size (Supplementary Fig S1a).</mark>
 
-<mark>Permutation testing with 1,000 permutations confirmed that seven of nine models significantly exceeded chance-level classification of 50% for balanced classes (Fig 2c). SVM achieved p = 0.002, Random Forest p = 0.003, XGBoost p = 0.002, and Naive Bayes p = 0.002, demonstrating that the metabolite panel contains genuine discriminatory information for obesity status. Decision Tree (p = 0.098) and Neural Network (p = 0.113) did not reach statistical significance, likely due to overfitting tendencies with small sample sizes.</mark>
-
-**Hold-out test set performance (SECONDARY METRIC)**
-
-<mark>Due to the small test set size (n=22), test set performance should be interpreted with caution. XGBoost achieved the highest test accuracy of 68.3% (95% CI: 50.0-86.4%), with F1-score of 0.656 (CI: 40.0-87.0%) and AUC of 0.738 (CI: 50.8-93.2%). SVM achieved 63.4% (95% CI: 45.5-81.8%; Fig 2b). The wide bootstrap confidence intervals reflect inherent uncertainty with small test sets, and cross-validation results should be used for primary interpretation.</mark>
-
-**Learning curve analysis**
-
-<mark>Learning curves (Supplementary Fig S1a) demonstrated converging training and validation accuracy for SVM and random forest, indicating appropriate model complexity without severe overfitting. The gap between training and validation curves was minimal at full sample size. Permutation test distributions for the top three models are shown in Supplementary Fig S1b.</mark>
-
-**Feature importance**
-
-<mark>SVM feature importance analysis revealed L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI >= 30 kg/m^2^ group (Fig 3a). D-fucose showed the strongest negative association, consistent with its reduced levels in the obesity group. Box plots with individual data points for the metabolites with the largest effect sizes are shown in Fig 3b.</mark>
+<mark>Feature importance analysis identified L-lysine and quinolinic acid as the most discriminatory metabolites, both elevated in the BMI ≥ 30 kg/m² group (Fig 3a). D-fucose showed the strongest negative association, consistent with its reduced levels in obesity. The six metabolites with the largest effect sizes are displayed with individual participant data points in Fig 3b.</mark>
 
 <mark>
 
