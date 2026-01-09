@@ -37,8 +37,11 @@ Sena-Evangelista KCM, Omage FB, Braga ES, et al.
 │   │   └── corrected_test_results.csv
 │   └── metadata/               # Sample characteristics (de-identified)
 ├── figures/
-│   ├── corrected_learning_curves.png
-│   └── corrected_permutation_test.png
+│   ├── Figure1.png                # Volcano plot, PCA, pathway enrichment
+│   ├── Figure2.png                # Model performance comparison
+│   ├── Figure3.png                # Feature importance analysis
+│   ├── FigureS1_Validation.png    # Learning curves, permutation tests
+│   └── *.pdf                      # Vector formats for publication
 ├── notebooks/
 │   └── (analysis notebooks)
 ├── run_corrected_analysis.py   # Main analysis script
@@ -91,6 +94,34 @@ All models except Decision Tree and Neural Network significantly exceeded chance
 | SVM | 0.634 (0.455-0.818) |
 
 Note: Wide confidence intervals reflect small test set size. Use CV metrics for primary interpretation.
+
+## Figures
+
+### Figure 1: Differential Metabolite Analysis
+![Figure 1](figures/Figure1.png)
+
+**a)** Volcano plot showing 34 significantly altered metabolites (FDR < 0.05). Red = elevated in obesity, blue = reduced. L-Lysine shows the largest effect size (Cohen's d = 1.30). **b)** Principal Component Analysis (3D) demonstrating partial separation between BMI groups. **c)** Pathway enrichment analysis highlighting lysine degradation and tryptophan metabolism as most significantly affected pathways.
+
+---
+
+### Figure 2: Machine Learning Model Performance
+![Figure 2](figures/Figure2.png)
+
+**a)** Cross-validation performance comparison across six classifiers. SVM achieved the highest accuracy (72.4% ± 9.1%). Error bars represent standard deviation across 50 CV iterations. **b)** Confusion matrix for SVM on the hold-out test set (n=22). **c)** Permutation test results confirming all models significantly exceed chance performance (p < 0.05).
+
+---
+
+### Figure 3: Metabolite Effect Sizes
+![Figure 3](figures/Figure3.png)
+
+**a)** Cohen's d effect sizes for the top 15 discriminatory metabolites. Dashed lines indicate large effect threshold (|d| = 0.8). **b)** Box plots with individual data points for the six metabolites with largest effect sizes. Asterisks indicate significance: * p < 0.05, ** p < 0.01.
+
+---
+
+### Supplementary Figure S1: Model Validation
+![Figure S1](figures/FigureS1_Validation.png)
+
+**a)** Learning curves showing training vs. validation accuracy as a function of training set size. SVM shows the best generalization with minimal overfitting. **b)** Permutation test distributions for top three models, demonstrating actual model performance (red line) significantly exceeds the null distribution.
 
 ## Reproducibility
 
